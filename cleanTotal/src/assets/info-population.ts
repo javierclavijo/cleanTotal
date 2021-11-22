@@ -1,6 +1,6 @@
-import {Employee} from "../app/employee";
+import {EmployeeData} from "../app/employee";
 
-export const POPULATION: Employee[] = [
+export const POPULATION: EmployeeData[] = [
   {
     "id": 1,
     "name": "Eliot",

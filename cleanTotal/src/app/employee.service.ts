@@ -14,7 +14,17 @@ export class EmployeeService {
   }
 
   getEmployees(): Observable<Employee[]> {
-    return of(POPULATION)
+    return of(POPULATION.map(e => new Employee(
+      e.id,
+      e.name,
+      e.surname,
+      e.surname2,
+      e.sex,
+      e["country-id"],
+      e.phone,
+      e.datebirthday,
+      e.lastModification
+    )))
   }
 
 }
