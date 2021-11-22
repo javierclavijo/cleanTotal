@@ -1,0 +1,25 @@
+<table class="mdc-data-table__table">
+  <thead>
+  <tr class="mdc-data-table__header-row">
+    <th class="mdc-data-table__header-cell">Name</th>
+    <th class="mdc-data-table__header-cell">Birth date</th>
+    <th class="mdc-data-table__header-cell">Gender</th>
+    <th class="mdc-data-table__header-cell">Telephone number</th>
+    <th class="mdc-data-table__header-cell">Country</th>
+    <th class="mdc-data-table__header-cell">Last modified</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr
+    class="mdc-data-table__row"
+    *ngFor="let employee of employees"
+  >
+    <td class="mdc-data-table__cell">{{employee.surname}} {{employee.surname2}}, {{employee.name}}</td>
+    <td class="mdc-data-table__cell">{{employee.datebirthday}}</td>
+    <td class="mdc-data-table__cell">{{getSex(employee.sex)?.description}}</td>
+    <td class="mdc-data-table__cell">+{{getCountry(employee["country-id"])?.prefix}} {{employee.phone}}</td>
+    <td class="mdc-data-table__cell">{{getCountry(employee["country-id"])?.description}}</td>
+    <td class="mdc-data-table__cell">{{employee.lastModification}}</td>
+  </tr>
+  </tbody>
+</table>
