@@ -1,5 +1,4 @@
 import {DATASOURCE, DatasourceCountry, DatasourceSexOrLanguage} from "../assets/datasource";
-import {formatDate} from "@angular/common";
 
 export interface EmployeeData {
   id: number,
@@ -33,9 +32,9 @@ export class Employee {
     this.name = name;
     this.surname = surname;
     this.surname2 = surname2;
+    this.phone = phone;
     this.#sexId = sexId;
     this.#countryId = countryId;
-    this.phone = phone;
     this.#datebirthday = datebirthday;
     this.#lastModification = lastModification;
 

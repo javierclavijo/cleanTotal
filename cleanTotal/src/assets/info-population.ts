@@ -3,7 +3,7 @@ import {EmployeeData} from "../app/employee";
 export const POPULATION: EmployeeData[] = [
   {
     "id": 1,
-    "name": "Eliot",
+    "name": "Andrómaco",
     "surname": "Constans",
     "surname2": "Let",
     "sex": "H",
@@ -14,7 +14,7 @@ export const POPULATION: EmployeeData[] = [
   },
   {
     "id": 2,
-    "name": "Sandra",
+    "name": "Antígona",
     "surname": "Constans",
     "surname2": "Alter",
     "sex": "H",
