@@ -3,141 +3,27 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th scope="col">
-          Name
-          <div class="d-flex">
-            <button class="btn btn-link"
-                    (click)="sortEmployees('surname', 'desc')"
-                    type="button">
-              <i class="las la-sort-down"></i>
-            </button>
-            <button class="btn btn-link"
-                    (click)="sortEmployees('surname', 'asc')"
-                    type="button">
-              <i class="las la-sort-up"></i>
-            </button>
-          </div>
-        </th>
-        <th scope="col">
-          Birth date
-          <div class="d-flex">
-            <button class="btn btn-link"
-                    (click)="sortEmployees('birthDate', 'desc')"
-                    type="button">
-              <i class="las la-sort-down"></i>
-            </button>
-            <button class="btn btn-link"
-                    (click)="sortEmployees('birthDate', 'asc')"
-                    type="button">
-              <i class="las la-sort-up"></i>
-            </button>
-          </div>
-        </th>
-        <th scope="col">
-          Gender
-          <div class="d-flex">
-            <button class="btn btn-link"
-                    (click)="sortEmployees('gender', 'desc')"
-                    type="button">
-              <i class="las la-sort-down"></i>
-            </button>
-            <button class="btn btn-link"
-                    (click)="sortEmployees('gender', 'asc')"
-                    type="button">
-              <i class="las la-sort-up"></i>
-            </button>
-          </div>
-        </th>
-        <th scope="col">
-          Telephone number
-          <div class="d-flex">
-            <button class="btn btn-link"
-                    (click)="sortEmployees('phone', 'desc')"
-                    type="button">
-              <i class="las la-sort-down"></i>
-            </button>
-            <button class="btn btn-link"
-                    (click)="sortEmployees('phone', 'asc')"
-                    type="button">
-              <i class="las la-sort-up"></i>
-            </button>
-          </div>
-        </th>
-        <th scope="col">
-          Country
-          <div class="d-flex">
-            <button class="btn btn-link"
-                    (click)="sortEmployees('country', 'desc')"
-                    type="button">
-              <i class="las la-sort-down"></i>
-            </button>
-            <button class="btn btn-link"
-                    (click)="sortEmployees('country', 'asc')"
-                    type="button">
-              <i class="las la-sort-up"></i>
-            </button>
-          </div>
-        </th>
-        <th scope="col">
-          Last modified
-          <div class="d-flex">
-            <button class="btn btn-link"
-                    (click)="sortEmployees('lastModified', 'desc')"
-                    type="button">
-              <i class="las la-sort-down"></i>
-            </button>
-            <button class="btn btn-link"
-                    (click)="sortEmployees('lastModified', 'asc')"
-                    type="button">
-              <i class="las la-sort-up"></i>
-            </button>
-          </div>
-        </th>
+        <th scope="col">Name</th>
+        <th scope="col">Birth date</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Telephone number</th>
+        <th scope="col">Country</th>
+        <th scope="col">Last modified</th>
       </tr>
       </thead>
 
       <tbody>
       <tr
-        *ngFor="let employee of shownEmployees"
+        *ngFor="let employee of employees"
       >
         <td>{{employee.surname}} {{employee.surname2}}, {{employee.name}}</td>
-        <td>{{employee.birthDate | date:"YYYY-MM-dd" }}</td>
+        <td>{{employee.birthDate  | date:"YYYY-MM-dd" }}</td>
         <td>{{employee.gender?.description}}</td>
         <td>+{{employee.country?.prefix}} {{employee.phone}}</td>
         <td>{{employee.country?.description}}</td>
-        <td>{{employee.lastModified | date:"YYYY-MM-dd HH:mm"}}</td>
+        <td>{{employee.lastModified | date:"YYYY-MM-dd HH:mm" }}</td>
       </tr>
-      </tbody>
     </table>
 
-
-    <div class="d-flex justify-content-center">
-      <button class="btn btn-secondary m-1"
-              [disabled]="currentPage === 0"
-              (click)="setPage(0)"
-              type="button">
-        <<
-      </button>
-      <button class="btn btn-secondary m-1"
-              [disabled]="currentPage === 0"
-              (click)="setPage(currentPage - 1)"
-              type="button">
-        <
-      </button>
-      <button class="btn btn-secondary m-1"
-              [disabled]="currentPage === MAX_PAGE"
-              (click)="setPage(currentPage + 1)"
-              type="button">
-        >
-      </button>
-      <button class="btn btn-secondary m-1"
-              [disabled]="currentPage === MAX_PAGE"
-              (click)="setPage(MAX_PAGE)"
-              type="button">
-        >>
-      </button>
-    </div>
-
-    <p class="text-center">Page {{currentPage + 1}} of {{MAX_PAGE + 1}}</p>
   </div>
 </div>

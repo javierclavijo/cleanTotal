@@ -1,28 +1,26 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from "rxjs";
-import {Employee} from "./employee";
-import {POPULATION} from "../assets/info-population"
+import {Observable} from "rxjs";
+import {EmployeeData} from "./entities/employeeData";
+import {HttpClient} from "@angular/common/http";
+import {Datasource} from "./entities/datasource";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  constructor() {
+  DATASOURCE_URI: string = 'http://localhost:3000/data/'
+  EMPLOYEES_URI: string = 'http://localhost:3000/person/'
+
+  constructor(private http: HttpClient) {
   }
 
-  getEmployees(): Observable<Employee[]> {
-    return of(POPULATION.map(e => new Employee(
-      e.id,
-      e.name,
-      e.surname,
-      e.surname2,
-      e.sex,
-      e["country-id"],
-      e.phone,
-      e.datebirthday,
-      e.lastModification
-    )))
+  getEmployees(): Observable<EmployeeData[]> {
+    return this.http.get<EmployeeData[]>(this.EMPLOYEES_URI)
+  }
+
+  getDatasource(): Observable<Datasource> {
+    return this.http.get<Datasource>(this.DATASOURCE_URI)
   }
 
 }
