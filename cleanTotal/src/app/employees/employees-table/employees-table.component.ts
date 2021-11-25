@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from "../employee.service";
-import {Employee} from "../entities/employeeData";
-import {Datasource} from "../entities/datasource";
+import {EmployeeService} from "../../employee.service";
+import {Employee} from "../../entities/employeeData";
 
 @Component({
   selector: 'app-employees-table',
@@ -11,15 +10,14 @@ import {Datasource} from "../entities/datasource";
 export class EmployeesTableComponent implements OnInit {
 
   employees: Employee[] = []
-  datasource!: Datasource;
   currentPage: number = 1;
+  columnsToDisplay = ['name', 'birthDate', 'gender', 'phone', 'country', 'lastModified']
 
   constructor(
     private employeeService: EmployeeService) {
   }
 
   ngOnInit(): void {
-    this.getDatasource()
     this.getEmployees()
   }
 
@@ -28,8 +26,12 @@ export class EmployeesTableComponent implements OnInit {
     employeesObservable.subscribe(e => this.employees = e)
   }
 
-  getDatasource(): void {
-    this.employeeService.getDatasource().subscribe(datasource => this.datasource = datasource)
+
+  sortEmployees(sortFunction: Function): void {
+    this
+      .employees
+      //@ts-ignore
+      .sort(sortFunction)
   }
 
 }
