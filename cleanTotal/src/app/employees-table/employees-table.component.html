@@ -14,7 +14,7 @@
 
       <tbody>
       <tr
-        *ngFor="let employee of employees"
+        *ngFor="let employee of employees | paginate: {itemsPerPage: 10, currentPage: currentPage}"
       >
         <td>{{employee.surname}} {{employee.surname2}}, {{employee.name}}</td>
         <td>{{employee.birthDate  | date:"YYYY-MM-dd" }}</td>
@@ -24,6 +24,8 @@
         <td>{{employee.lastModified | date:"YYYY-MM-dd HH:mm" }}</td>
       </tr>
     </table>
+
+    <pagination-controls (pageChange)="currentPage=$event"></pagination-controls>
 
   </div>
 </div>

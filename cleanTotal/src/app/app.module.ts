@@ -6,6 +6,8 @@ import {AppComponent} from './app.component';
 import {EmployeesTableComponent} from './employees-table/employees-table.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {NgxPaginationModule} from "ngx-pagination";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -16,9 +18,10 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

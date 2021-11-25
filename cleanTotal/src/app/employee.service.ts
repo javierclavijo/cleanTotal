@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
-import {EmployeeData} from "./entities/employeeData";
+import {lastValueFrom, map, Observable} from "rxjs";
+import {Employee, EmployeeData} from "./entities/employeeData";
 import {HttpClient} from "@angular/common/http";
 import {Datasource} from "./entities/datasource";
 
@@ -11,12 +11,18 @@ export class EmployeeService {
 
   DATASOURCE_URI: string = 'http://localhost:3000/data/'
   EMPLOYEES_URI: string = 'http://localhost:3000/person/'
+  datasource!: Datasource;
 
   constructor(private http: HttpClient) {
   }
 
-  getEmployees(): Observable<EmployeeData[]> {
-    return this.http.get<EmployeeData[]>(this.EMPLOYEES_URI)
+  async getEmployees(): Promise<Observable<Employee[]>> {
+    await lastValueFrom(this.getDatasource()).then(
+      datasource => this.datasource = datasource
+    )
+    return this.http.get<EmployeeData[]>(this.EMPLOYEES_URI).pipe(map(
+      employees => employees.map(e => new Employee(e, this.datasource))
+    ))
   }
 
   getDatasource(): Observable<Datasource> {
