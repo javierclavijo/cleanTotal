@@ -1,6 +1,7 @@
 <div class="container">
   <div class="card mt-4 p-4">
     <h2 class="card-title text-center">Employees</h2>
+    <app-table-filter></app-table-filter>
     <table class="table table-striped">
       <thead>
       <tr>
@@ -32,9 +33,7 @@
       </thead>
 
       <tbody>
-      <tr
-        *ngFor="let employee of employees | paginate: {itemsPerPage: 10, currentPage: currentPage}"
-      >
+      <tr *ngFor="let employee of employees | paginate: {itemsPerPage: 10, currentPage: currentPage}">
         <td>{{employee.surname}} {{employee.surname2}}, {{employee.name}}</td>
         <td>{{employee.birthDate  | date:"YYYY-MM-dd" }}</td>
         <td>{{employee.gender?.description}}</td>

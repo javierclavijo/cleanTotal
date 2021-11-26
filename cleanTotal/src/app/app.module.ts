@@ -10,12 +10,14 @@ import {NgxPaginationModule} from "ngx-pagination";
 import {DatePipe} from "@angular/common";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TableSortComponent } from './employees/table-sort/table-sort.component';
+import { TableFilterComponent } from './employees/table-filter/table-filter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesTableComponent,
     TableSortComponent,
+    TableFilterComponent,
   ],
   imports: [
     BrowserModule,
