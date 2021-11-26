@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from "../../employee.service";
-import {Employee} from "../../entities/employeeData";
+import {EmployeeArray} from "../../entities/employeeArray";
 
 @Component({
   selector: 'app-employees-table',
@@ -9,7 +9,7 @@ import {Employee} from "../../entities/employeeData";
 })
 export class EmployeesTableComponent implements OnInit {
 
-  employees: Employee[] = []
+  employees: EmployeeArray = new EmployeeArray()
   currentPage: number = 1;
   columnsToDisplay = ['name', 'birthDate', 'gender', 'phone', 'country', 'lastModified']
 
@@ -23,15 +23,13 @@ export class EmployeesTableComponent implements OnInit {
 
   async getEmployees(): Promise<void> {
     let employeesObservable = await this.employeeService.getEmployees()
-    employeesObservable.subscribe(e => this.employees = e)
+    employeesObservable.subscribe(e => this.employees = new EmployeeArray(...e))
   }
 
 
-  sortEmployees(sortFunction: Function): void {
-    this
-      .employees
-      //@ts-ignore
-      .sort(sortFunction)
+  sortEmployees(
+    by: "fullName" | "birthDate" | "gender" | "phone" | "country" | "lastModified"): void {
+    this.employees.sortEmployees(by)
   }
 
 }

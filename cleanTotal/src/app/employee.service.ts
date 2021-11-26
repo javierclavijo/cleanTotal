@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {lastValueFrom, map, Observable} from "rxjs";
-import {Employee, EmployeeData} from "./entities/employeeData";
 import {HttpClient} from "@angular/common/http";
 import {Datasource} from "./entities/datasource";
+import {Employee, EmployeeData} from "./entities/employee";
 
 @Injectable({
   providedIn: 'root'

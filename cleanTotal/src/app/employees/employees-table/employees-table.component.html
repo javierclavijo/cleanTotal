@@ -6,35 +6,29 @@
       <thead>
       <tr>
         <th scope="col">Name
-          <app-table-sort [keys]="['surname']"
-                          (sortEvent)="sortEmployees($event)"></app-table-sort>
+          <app-table-sort [sortBy]="'fullName'" (sortEvent)="sortEmployees($event)"></app-table-sort>
         </th>
         <th scope="col">Birth date
-          <app-table-sort [keys]="['birthDate']"
-                          (sortEvent)="sortEmployees($event)"></app-table-sort>
+          <app-table-sort [sortBy]="'birthDate'" (sortEvent)="sortEmployees($event)"></app-table-sort>
         </th>
         <th scope="col">Gender
-          <app-table-sort [keys]="['gender', 'description']"
-                          (sortEvent)="sortEmployees($event)"></app-table-sort>
+          <app-table-sort [sortBy]="'gender'" (sortEvent)="sortEmployees($event)"></app-table-sort>
         </th>
         <th scope="col">Telephone number
-          <app-table-sort [keys]="['phone']"
-                          (sortEvent)="sortEmployees($event)"></app-table-sort>
+          <app-table-sort [sortBy]="'phone'" (sortEvent)="sortEmployees($event)"></app-table-sort>
         </th>
         <th scope="col">Country
-          <app-table-sort [keys]="['country','description']"
-                          (sortEvent)="sortEmployees($event)"></app-table-sort>
+          <app-table-sort [sortBy]="'country'" (sortEvent)="sortEmployees($event)"></app-table-sort>
         </th>
         <th scope="col">Last modified
-          <app-table-sort [keys]="['lastModified']"
-                          (sortEvent)="sortEmployees($event)"></app-table-sort>
+          <app-table-sort [sortBy]="'lastModified'" (sortEvent)="sortEmployees($event)"></app-table-sort>
         </th>
       </tr>
       </thead>
 
       <tbody>
       <tr *ngFor="let employee of employees | paginate: {itemsPerPage: 10, currentPage: currentPage}">
-        <td>{{employee.surname}} {{employee.surname2}}, {{employee.name}}</td>
+        <td>{{employee.fullName}}</td>
         <td>{{employee.birthDate  | date:"YYYY-MM-dd" }}</td>
         <td>{{employee.gender?.description}}</td>
         <td>+{{employee.country?.prefix}} {{employee.phone}}</td>
