@@ -1,4 +1,4 @@
-import {Country, CountryData, Datasource, GenderLanguage, GenderLanguageData} from "./datasource";
+import {Country, CountryData, Datasource, GenderLanguage, GenderLanguageData} from "./Datasource";
 
 export interface EmployeeData {
   id: number,

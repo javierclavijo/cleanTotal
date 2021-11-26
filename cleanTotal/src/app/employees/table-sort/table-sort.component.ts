@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Employee} from "../../entities/Employee";
 
 @Component({
   selector: 'app-table-sort',
@@ -7,8 +8,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class TableSortComponent implements OnInit {
 
-  @Input() sortBy: "fullName" | "birthDate" | "gender" | "phone" | "country" | "lastModified" = 'fullName'
-  @Output() sortEvent = new EventEmitter<"fullName" | "birthDate" | "gender" | "phone" | "country" | "lastModified">()
+  @Input() sortBy: keyof Employee = 'fullName'
+  @Output() sortEvent = new EventEmitter<keyof Employee>()
 
   constructor() {
   }

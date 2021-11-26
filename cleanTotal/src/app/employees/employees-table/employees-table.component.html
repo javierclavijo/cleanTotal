@@ -1,43 +1,30 @@
 <div class="container">
   <div class="card mt-4 p-4">
     <h2 class="card-title text-center">Employees</h2>
-    <app-table-filter></app-table-filter>
+    <app-table-filter [columns]="columns"
+                      (filterEvent)="filterEmployees($event)"
+                      class="mb-2" ></app-table-filter>
+
     <table class="table table-striped">
       <thead>
       <tr>
-        <th scope="col">Name
-          <app-table-sort [sortBy]="'fullName'" (sortEvent)="sortEmployees($event)"></app-table-sort>
-        </th>
-        <th scope="col">Birth date
-          <app-table-sort [sortBy]="'birthDate'" (sortEvent)="sortEmployees($event)"></app-table-sort>
-        </th>
-        <th scope="col">Gender
-          <app-table-sort [sortBy]="'gender'" (sortEvent)="sortEmployees($event)"></app-table-sort>
-        </th>
-        <th scope="col">Telephone number
-          <app-table-sort [sortBy]="'phone'" (sortEvent)="sortEmployees($event)"></app-table-sort>
-        </th>
-        <th scope="col">Country
-          <app-table-sort [sortBy]="'country'" (sortEvent)="sortEmployees($event)"></app-table-sort>
-        </th>
-        <th scope="col">Last modified
-          <app-table-sort [sortBy]="'lastModified'" (sortEvent)="sortEmployees($event)"></app-table-sort>
+        <th scope="col" *ngFor="let column of columns">{{column.name}}
+          <app-table-sort [sortBy]="column.property" (sortEvent)="sortEmployees($event)"></app-table-sort>
         </th>
       </tr>
       </thead>
 
       <tbody>
-      <tr *ngFor="let employee of employees | paginate: {itemsPerPage: 10, currentPage: currentPage}">
+      <tr *ngFor="let employee of employees.array | paginate: {itemsPerPage: 10, currentPage: currentPage}">
         <td>{{employee.fullName}}</td>
         <td>{{employee.birthDate  | date:"YYYY-MM-dd" }}</td>
-        <td>{{employee.gender?.description}}</td>
-        <td>+{{employee.country?.prefix}} {{employee.phone}}</td>
-        <td>{{employee.country?.description}}</td>
+        <td>{{employee.gender.description}}</td>
+        <td>+{{employee.country.prefix}} {{employee.phone}}</td>
+        <td>{{employee.country.description}}</td>
         <td>{{employee.lastModified | date:"YYYY-MM-dd HH:mm" }}</td>
       </tr>
     </table>
 
     <pagination-controls (pageChange)="currentPage=$event"></pagination-controls>
-
   </div>
 </div>

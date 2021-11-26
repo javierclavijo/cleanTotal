@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from "../../employee.service";
-import {EmployeeArray} from "../../entities/employeeArray";
+import {EmployeeList} from "../../entities/EmployeeList";
+import {Employee} from "../../entities/Employee";
+import {TableColumn} from "../../entities/TableColumn";
+import {TableFilter} from "../../entities/TableFilter";
 
 @Component({
   selector: 'app-employees-table',
@@ -9,9 +12,17 @@ import {EmployeeArray} from "../../entities/employeeArray";
 })
 export class EmployeesTableComponent implements OnInit {
 
-  employees: EmployeeArray = new EmployeeArray()
+  employees: EmployeeList = new EmployeeList()
+
   currentPage: number = 1;
-  columnsToDisplay = ['name', 'birthDate', 'gender', 'phone', 'country', 'lastModified']
+  columns: TableColumn[] = [
+    {name: 'Name', property: 'fullName'},
+    {name: 'Birth Date', property: 'birthDate'},
+    {name: 'Gender', property: 'gender'},
+    {name: 'Telephone number', property: 'phone'},
+    {name: 'Country', property: 'country'},
+    {name: 'Last modified', property: 'lastModified'}
+  ]
 
   constructor(
     private employeeService: EmployeeService) {
@@ -23,13 +34,16 @@ export class EmployeesTableComponent implements OnInit {
 
   async getEmployees(): Promise<void> {
     let employeesObservable = await this.employeeService.getEmployees()
-    employeesObservable.subscribe(e => this.employees = new EmployeeArray(...e))
+    employeesObservable.subscribe(e => this.employees = new EmployeeList(...e))
   }
 
 
   sortEmployees(
-    by: "fullName" | "birthDate" | "gender" | "phone" | "country" | "lastModified"): void {
+    by: keyof Employee): void {
     this.employees.sortEmployees(by)
   }
 
+  filterEmployees($event: TableFilter) {
+    this.employees.filterEmployees($event.filter, $event.by)
+  }
 }

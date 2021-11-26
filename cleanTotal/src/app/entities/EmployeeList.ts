@@ -1,15 +1,18 @@
-import {Employee} from "./employee";
+import {Employee} from "./Employee";
 
-export class EmployeeArray extends Array<Employee> {
-  private sortedBy: string | undefined
+export class EmployeeList {
+  private sortedBy: keyof Employee | undefined
   private sortedOrder: 'asc' | 'desc' | undefined
+  private allEmployees: Employee[] = []
+  array: Employee[] = []
 
   constructor(...items: Employee[]) {
-    super(...items)
+    this.allEmployees = [...items]
+    this.array = [...items]
   }
 
   sortEmployees(
-    by: "fullName" | "birthDate" | "gender" | "phone" | "country" | "lastModified",
+    by: keyof Employee,
     order: "asc" | "desc" = "asc"): void {
 
     const sortByKey = (a: Employee, b: Employee) => {
@@ -29,9 +32,17 @@ export class EmployeeArray extends Array<Employee> {
       order = this.sortedOrder === 'asc' ? 'desc' : 'asc'
     }
 
-    this.sort(sortByKey)
+    this.allEmployees.sort(sortByKey)
+    this.array.sort(sortByKey)
     this.sortedBy = by
     this.sortedOrder = order
+  }
+
+  filterEmployees(filter: string, by: keyof Employee) {
+    this.array = this.allEmployees.filter(
+      e => e[by].toString().toLocaleLowerCase()
+        .includes(filter.toLocaleLowerCase())
+    )
   }
 
 }

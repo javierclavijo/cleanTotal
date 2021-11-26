@@ -1,11 +1,21 @@
 <div>
-  <div class="input-group col-4">
-    <input class="form-control" id="filter" type="text"/>
-    <div class="input-group-append">
-      <button class="btn btn-primary"
-              type="button"
-      ><i class="las la-search"></i></button>
-    </div>
-  </div>
-</div>
+  <form (ngSubmit)="emitFilterEvent()">
+    <div class="input-group col-4">
+      <select [(ngModel)]="selectedBy" #ctrl="ngModel"
+              class="form-control"
+              name="by">
+        <option *ngFor="let column of columns" value="{{column.property}}">{{column.name}}</option>
+      </select>
 
+      <input [(ngModel)]="filter" #ctrl="ngModel"
+             class="form-control"
+             name="filter" id="filter" type="text"/>
+
+      <div class="input-group-append">
+        <button class="btn btn-primary">
+          <i class="las la-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

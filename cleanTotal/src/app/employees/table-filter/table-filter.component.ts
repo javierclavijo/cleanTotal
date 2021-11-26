@@ -1,4 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {TableColumn} from "../../entities/TableColumn";
+import {TableFilter} from "../../entities/TableFilter";
+import {Employee} from "../../entities/Employee";
 
 @Component({
   selector: 'app-table-filter',
@@ -7,12 +10,22 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class TableFilterComponent implements OnInit {
 
-  @Input() columns: string[][]=[]
+  @Input() columns: TableColumn[] = []
+  @Output() filterEvent = new EventEmitter<TableFilter>()
+  filter: string = ''
+  selectedBy: keyof Employee = "fullName"
 
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  emitFilterEvent() {
+    this.filterEvent.emit({
+      by: this.selectedBy,
+      filter: this.filter
+    })
   }
 
 }
