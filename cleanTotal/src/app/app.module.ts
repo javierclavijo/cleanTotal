@@ -11,6 +11,7 @@ import {DatePipe} from "@angular/common";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TableSortComponent } from './employees/table-sort/table-sort.component';
 import { TableFilterComponent } from './employees/table-filter/table-filter.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { TableFilterComponent } from './employees/table-filter/table-filter.comp
     EmployeesTableComponent,
     TableSortComponent,
     TableFilterComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,
