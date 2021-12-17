@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {EmployeesTableComponent} from "./employees/employees-table/employees-table.component";
-import {EmployeeCreateComponent} from "./employees/employee-create/employee-create.component";
+import {EmployeeFormComponent} from "./employees/employee-form/employee-form.component";
 
 const routes: Routes = [
   {'path': 'employees', component: EmployeesTableComponent},
-  {'path': 'employees/new', component: EmployeeCreateComponent}
+  {'path': 'employees/new', component: EmployeeFormComponent}
 ];
 
 @NgModule({

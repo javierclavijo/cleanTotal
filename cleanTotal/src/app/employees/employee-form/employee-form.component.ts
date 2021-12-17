@@ -5,11 +5,11 @@ import {Datasource} from "../../entities/Datasource";
 import {Employee} from "../../entities/Employee";
 
 @Component({
-  selector: 'app-employee-create',
-  templateUrl: './employee-create.component.html',
-  styleUrls: ['./employee-create.component.scss']
+  selector: 'app-employee-form',
+  templateUrl: './employee-form.component.html',
+  styleUrls: ['./employee-form.component.scss']
 })
-export class EmployeeCreateComponent implements OnInit {
+export class EmployeeFormComponent implements OnInit {
 
   datasource?: Datasource;
   message?: string;

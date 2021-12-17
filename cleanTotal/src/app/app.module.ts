@@ -12,7 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableSortComponent} from './employees/table-sort/table-sort.component';
 import {TableFilterComponent} from './employees/table-filter/table-filter.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
-import {EmployeeCreateComponent} from './employees/employee-create/employee-create.component';
+import {EmployeeFormComponent} from './employees/employee-form/employee-form.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import {EmployeeCreateComponent} from './employees/employee-create/employee-crea
     TableSortComponent,
     TableFilterComponent,
     NavBarComponent,
-    EmployeeCreateComponent,
+    EmployeeFormComponent,
   ],
   imports: [
     BrowserModule,
