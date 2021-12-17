@@ -37,7 +37,6 @@ export class EmployeesTableComponent implements OnInit {
     employeesObservable.subscribe(e => this.employees = new EmployeeList(...e))
   }
 
-
   sortEmployees(
     by: keyof Employee): void {
     this.employees.sortEmployees(by)

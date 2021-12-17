@@ -1,7 +1,74 @@
-<div class="container">
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()"
+      class="container">
   <div class="card mt-4 p-4">
     <h2 class="card-title text-center">Add Employee</h2>
 
+    <div class="row">
+      <div class="form-group col-4">
+        <label for="firstName">First name</label>
+        <input type="text"
+               class="form-control"
+               formControlName="firstName"
+               id="firstName"/>
+      </div>
 
+      <div class="form-group col-4">
+        <label for="surname">Surname 1</label>
+        <input type="text"
+               class="form-control"
+               formControlName="surname"
+               id="surname"/>
+      </div>
+
+      <div class="form-group col-4">
+        <label for="surname2">Surname 2</label>
+        <input type="text"
+               class="form-control"
+               formControlName="surname2"
+               id="surname2"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-3">
+        <label for="gender">Country</label>
+        <select class="form-control"
+                formControlName="gender"
+                id="gender">
+          <option *ngFor="let gender of datasource?.sex"
+                  value="{{gender.id}}">
+            {{gender?.description}}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-3">
+        <label for="birthDate">Birth date</label>
+        <input type="date"
+               class="form-control"
+               formControlName="birthDate"
+               id="birthDate"/>
+      </div>
+
+      <div class="form-group col-3">
+        <label for="phone">Telephone number</label>
+        <input type="text"
+               class="form-control"
+               formControlName="phone"
+               id="phone"/>
+      </div>
+
+      <div class="form-group col-3">
+        <label for="country">Country</label>
+        <select class="form-control"
+                formControlName="country"
+                id="country">
+          <option *ngFor="let country of datasource?.country"
+                  value="{{country.id}}">
+            {{country?.description}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary col-2">Add employee</button>
+    </div>
   </div>
-</div>
+</form>
