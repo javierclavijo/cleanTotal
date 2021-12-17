@@ -1,5 +1,10 @@
 <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()"
       class="container">
+  <div *ngIf="message"
+       class="alert alert-success">
+    {{message}}
+  </div>
+
   <div class="card mt-4 p-4">
     <h2 class="card-title text-center">Add Employee</h2>
 
@@ -8,7 +13,7 @@
         <label for="firstName">First name</label>
         <input type="text"
                class="form-control"
-               formControlName="firstName"
+               formControlName="name"
                id="firstName"/>
       </div>
 
@@ -30,12 +35,12 @@
     </div>
     <div class="row">
       <div class="form-group col-3">
-        <label for="gender">Country</label>
+        <label for="gender">Gender</label>
         <select class="form-control"
-                formControlName="gender"
+                formControlName="sex"
                 id="gender">
           <option *ngFor="let gender of datasource?.sex"
-                  value="{{gender.id}}">
+                  value="{{gender.key}}">
             {{gender?.description}}</option>
         </select>
       </div>
@@ -44,7 +49,7 @@
         <label for="birthDate">Birth date</label>
         <input type="date"
                class="form-control"
-               formControlName="birthDate"
+               formControlName="datebirthday"
                id="birthDate"/>
       </div>
 
@@ -59,7 +64,7 @@
       <div class="form-group col-3">
         <label for="country">Country</label>
         <select class="form-control"
-                formControlName="country"
+                formControlName="countryId"
                 id="country">
           <option *ngFor="let country of datasource?.country"
                   value="{{country.id}}">

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {lastValueFrom, map, Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Datasource} from "./entities/Datasource";
 import {Employee, EmployeeData} from "./entities/Employee";
 
@@ -9,8 +9,8 @@ import {Employee, EmployeeData} from "./entities/Employee";
 })
 export class EmployeeService {
 
-  DATASOURCE_URI: string = 'http://localhost:3000/data/'
-  EMPLOYEES_URI: string = 'http://localhost:3000/person/'
+  DATASOURCE_URL: string = 'http://localhost:3000/data/'
+  EMPLOYEES_URL: string = 'http://localhost:3000/person/'
   datasource!: Datasource;
 
   constructor(private http: HttpClient) {
@@ -20,13 +20,20 @@ export class EmployeeService {
     await lastValueFrom(this.getDatasource()).then(
       datasource => this.datasource = datasource
     )
-    return this.http.get<EmployeeData[]>(this.EMPLOYEES_URI).pipe(map(
+    return this.http.get<EmployeeData[]>(this.EMPLOYEES_URL).pipe(map(
       employees => employees.map(e => new Employee(e, this.datasource))
     ))
   }
 
   getDatasource(): Observable<Datasource> {
-    return this.http.get<Datasource>(this.DATASOURCE_URI)
+    return this.http.get<Datasource>(this.DATASOURCE_URL)
   }
 
+  addEmployee(data: EmployeeData): Observable<EmployeeData> {
+    return this.http.post<EmployeeData>(this.EMPLOYEES_URL, data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    })
+  }
 }

@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, Validators} from "@angular/forms";
 import {EmployeeService} from "../../employee.service";
 import {Datasource} from "../../entities/Datasource";
-import {EmployeeList} from "../../entities/EmployeeList";
-import {DataSource} from "@angular/cdk/collections";
+import {Employee} from "../../entities/Employee";
 
 @Component({
   selector: 'app-employee-create',
@@ -13,15 +12,16 @@ import {DataSource} from "@angular/cdk/collections";
 export class EmployeeCreateComponent implements OnInit {
 
   datasource?: Datasource;
+  message?: string;
 
   employeeForm = this.fb.group({
-    firstName: [''],
-    surname: [''],
-    surname2: [''],
-    phone: [''],
-    birthDate: [''],
-    country: [''],
-    gender: ['']
+    name: ['', Validators.required],
+    surname: ['', Validators.required],
+    surname2: ['', Validators.required],
+    phone: ['', Validators.required],
+    datebirthday: ['', Validators.required],
+    countryId: ['', Validators.required],
+    sex: ['', Validators.required]
   })
 
   constructor(
@@ -39,6 +39,13 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-
+    this.service.addEmployee({
+      ...this.employeeForm.value,
+      lastModification: Date(),
+      countryId: parseInt(this.employeeForm.value.countryId)
+    }).subscribe(e => {
+      let employee = new Employee(e, this.datasource!)
+      this.message = `Employee ${employee.fullName} added successfully.`
+    })
   }
 }
