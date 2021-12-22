@@ -4,6 +4,7 @@ import {EmployeeList} from "../../entities/EmployeeList";
 import {Employee} from "../../entities/Employee";
 import {TableColumn} from "../../entities/TableColumn";
 import {TableFilter} from "../../entities/TableFilter";
+import {Datasource} from "../../entities/Datasource";
 
 @Component({
   selector: 'app-employees-table',
@@ -13,6 +14,7 @@ import {TableFilter} from "../../entities/TableFilter";
 export class EmployeesTableComponent implements OnInit {
 
   employees: EmployeeList = new EmployeeList()
+  datasource!: Datasource
 
   currentPage: number = 1;
   columns: TableColumn[] = [
@@ -30,11 +32,17 @@ export class EmployeesTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees()
+    this.getDatasource()
   }
 
   async getEmployees(): Promise<void> {
     let employeesObservable = await this.employeeService.getEmployees()
     employeesObservable.subscribe(e => this.employees = new EmployeeList(...e))
+  }
+
+  async getDatasource(): Promise<void> {
+    (await this.employeeService.getDatasource())
+      .subscribe(d => this.datasource = d)
   }
 
   sortEmployees(

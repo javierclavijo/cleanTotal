@@ -1,12 +1,98 @@
+<!-- Name & surnames -->
+
 <td>
-  <input type="text"
+  <span *ngIf="!edit">{{employee.fullName}}</span>
+  <div *ngIf="edit">
+    <input type="text"
+           [formControl]="surname"
+           class="form-control d-inline w-25"
+    />
+    &nbsp;
+    <input type="text"
+           [formControl]="surname2"
+           class="form-control d-inline w-25"
+    />
+    ,&nbsp;
+    <input type="text"
+           [formControl]="name"
+           class="form-control d-inline w-25"
+    />
+  </div>
+</td>
+
+
+<!-- Birth date -->
+
+<td>
+  <span *ngIf="!edit">{{employee.birthDate  | date:"YYYY-MM-dd" }}</span>
+  <input type="date" *ngIf="edit" [formControl]="birthDate"
          class="form-control"
-         [formControl]="fullName"
-         (change)="onChange()"
   />
 </td>
-<td>{{employee.birthDate  | date:"YYYY-MM-dd" }}</td>
-<td>{{employee.gender.description}}</td>
-<td>+{{employee.country.prefix}} {{employee.phone}}</td>
-<td>{{employee.country.description}}</td>
+
+
+<!-- Gender -->
+
+<td>
+  <span *ngIf="!edit">{{employee.gender.description}}</span>
+
+  <select *ngIf="edit" [formControl]="gender"
+          class="form-control">
+    <option *ngFor="let gender of datasource?.sex"
+            value="{{gender.key}}">
+      {{gender?.description}}</option>
+  </select>
+</td>
+
+
+<!-- Telephone number -->
+
+<td>
+  <span *ngIf="!edit">+{{employee.country.prefix}} {{employee.phone}}</span>
+  <input type="text" *ngIf="edit" [formControl]="phone"
+         class="form-control d-inline"
+  />
+</td>
+
+
+<!-- Country -->
+
+<td>
+  <span *ngIf="!edit">{{employee.country.description}}</span>
+
+  <select *ngIf="edit" [formControl]="country"
+          class="form-control">
+    <option *ngFor="let country of datasource?.country"
+            value="{{country.id}}">
+      {{country?.description}}</option>
+  </select>
+</td>
+
+
+<!-- Last modification -->
+
 <td>{{employee.lastModified | date:"YYYY-MM-dd HH:mm" }}</td>
+
+
+<!-- Edition controls -->
+
+<td>
+  <a href="#"
+     *ngIf="!edit"
+     (click)="toggleEdit($event)">
+    <i class="las la-edit"></i>
+  </a>
+
+  <div *ngIf="edit">
+    <a href="#"
+       (click)="submit($event)">
+      <i class="las la-check"></i>
+    </a>
+
+    <a href="#"
+       *ngIf="edit"
+       (click)="toggleEdit($event)">
+      <i class="las la-times"></i>
+    </a>
+  </div>
+</td>

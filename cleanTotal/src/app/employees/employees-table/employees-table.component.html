@@ -11,13 +11,15 @@
         <th scope="col" *ngFor="let column of columns">{{column.name}}
           <app-table-sort [sortBy]="column.property" (sortEvent)="sortEmployees($event)"></app-table-sort>
         </th>
+        <th></th>
       </tr>
       </thead>
 
       <tbody>
       <tr employees-table-row
-        *ngFor="let employee of employees.array | paginate: {itemsPerPage: 10, currentPage: currentPage}"
-        [employee]="employee"></tr>
+          *ngFor="let employee of employees.array | paginate: {itemsPerPage: 10, currentPage: currentPage}"
+          [employee]="employee"
+          [datasource]="datasource"></tr>
       </tbody>
     </table>
 
