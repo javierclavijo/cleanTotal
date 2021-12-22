@@ -13,6 +13,7 @@ import {TableSortComponent} from './employees/table-sort/table-sort.component';
 import {TableFilterComponent} from './employees/table-filter/table-filter.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {EmployeeFormComponent} from './employees/employee-form/employee-form.component';
+import { EmployeesTableRowComponent } from './employees/employees-table/employees-table-row/employees-table-row.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {EmployeeFormComponent} from './employees/employee-form/employee-form.com
     TableFilterComponent,
     NavBarComponent,
     EmployeeFormComponent,
+    EmployeesTableRowComponent,
   ],
   imports: [
     BrowserModule,

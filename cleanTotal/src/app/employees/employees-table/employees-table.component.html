@@ -3,7 +3,7 @@
     <h2 class="card-title text-center">Employees</h2>
     <app-table-filter [columns]="columns"
                       (filterEvent)="filterEmployees($event)"
-                      class="mb-2" ></app-table-filter>
+                      class="mb-2"></app-table-filter>
 
     <table class="table table-striped">
       <thead>
@@ -15,14 +15,10 @@
       </thead>
 
       <tbody>
-      <tr *ngFor="let employee of employees.array | paginate: {itemsPerPage: 10, currentPage: currentPage}">
-        <td>{{employee.fullName}}</td>
-        <td>{{employee.birthDate  | date:"YYYY-MM-dd" }}</td>
-        <td>{{employee.gender.description}}</td>
-        <td>+{{employee.country.prefix}} {{employee.phone}}</td>
-        <td>{{employee.country.description}}</td>
-        <td>{{employee.lastModified | date:"YYYY-MM-dd HH:mm" }}</td>
-      </tr>
+      <tr employees-table-row
+        *ngFor="let employee of employees.array | paginate: {itemsPerPage: 10, currentPage: currentPage}"
+        [employee]="employee"></tr>
+      </tbody>
     </table>
 
     <pagination-controls (pageChange)="currentPage=$event"></pagination-controls>
