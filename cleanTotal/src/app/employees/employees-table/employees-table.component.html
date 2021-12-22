@@ -1,8 +1,7 @@
 <div class="container">
   <div class="card mt-4 p-4">
     <h2 class="card-title text-center">Employees</h2>
-    <app-table-filter [columns]="columns"
-                      (filterEvent)="filterEmployees($event)"
+    <app-table-filter (filterEvent)="filterEmployees($event)"
                       class="mb-2"></app-table-filter>
 
     <table class="table table-striped">
@@ -17,7 +16,9 @@
 
       <tbody>
       <tr employees-table-row
-          *ngFor="let employee of employees.array | paginate: {itemsPerPage: 10, currentPage: currentPage}"
+          *ngFor="let employee of employees
+            | employeeFilter: filter
+           | paginate: {itemsPerPage: 10, currentPage: currentPage}"
           [employee]="employee"
           [datasource]="datasource"></tr>
       </tbody>

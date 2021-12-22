@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from "../../employee.service";
-import {EmployeeList} from "../../entities/EmployeeList";
 import {Employee} from "../../entities/Employee";
 import {TableColumn} from "../../entities/TableColumn";
-import {TableFilter} from "../../entities/TableFilter";
 import {Datasource} from "../../entities/Datasource";
 
 @Component({
@@ -13,7 +11,7 @@ import {Datasource} from "../../entities/Datasource";
 })
 export class EmployeesTableComponent implements OnInit {
 
-  employees: EmployeeList = new EmployeeList()
+  employees: Employee[] = []
   datasource!: Datasource
 
   currentPage: number = 1;
@@ -26,6 +24,8 @@ export class EmployeesTableComponent implements OnInit {
     {name: 'Last modified', property: 'lastModified'}
   ]
 
+  filter: string = ''
+
   constructor(
     private employeeService: EmployeeService) {
   }
@@ -37,20 +37,20 @@ export class EmployeesTableComponent implements OnInit {
 
   async getEmployees(): Promise<void> {
     let employeesObservable = await this.employeeService.getEmployees()
-    employeesObservable.subscribe(e => this.employees = new EmployeeList(...e))
+    employeesObservable.subscribe(e => this.employees = e)
   }
 
   async getDatasource(): Promise<void> {
-    (await this.employeeService.getDatasource())
-      .subscribe(d => this.datasource = d)
+    this.employeeService.getDatasource().subscribe(d => this.datasource = d)
   }
 
   sortEmployees(
     by: keyof Employee): void {
-    this.employees.sortEmployees(by)
+    // this.employees.sortEmployees(by)
   }
 
-  filterEmployees($event: TableFilter) {
-    this.employees.filterEmployees($event.filter, $event.by)
+  filterEmployees($event: { filter: string }) {
+    // this.employees.filterEmployees($event.filter, $event.by)
+    this.filter = $event.filter
   }
 }

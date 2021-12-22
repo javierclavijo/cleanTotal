@@ -65,7 +65,6 @@ export class EmployeesTableRowComponent implements OnInit {
       datebirthday: new Date(this.birthDate.value).toISOString(),
       lastModification: new Date().toISOString()
     }
-    console.log(updatedEmployeeData)
 
     const updatedEmployee = this.service.updateEmployee(this.employee.id, updatedEmployeeData)
     this.employee = new Employee(

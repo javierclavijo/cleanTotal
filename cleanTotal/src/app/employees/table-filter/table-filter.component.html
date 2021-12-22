@@ -1,12 +1,6 @@
 <div>
-  <form (ngSubmit)="emitFilterEvent()">
+  <form (change)="emitFilterEvent()">
     <div class="input-group col-4">
-      <select [(ngModel)]="selectedBy" #ctrl="ngModel"
-              class="form-control"
-              name="by">
-        <option *ngFor="let column of columns" value="{{column.property}}">{{column.name}}</option>
-      </select>
-
       <input [(ngModel)]="filter" #ctrl="ngModel"
              class="form-control"
              name="filter" id="filter" type="text"/>
