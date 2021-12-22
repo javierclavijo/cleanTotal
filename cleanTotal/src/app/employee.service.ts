@@ -9,8 +9,8 @@ import {Employee, EmployeeData} from "./entities/Employee";
 })
 export class EmployeeService {
 
-  DATASOURCE_URL: string = 'http://localhost:3000/data/'
-  EMPLOYEES_URL: string = 'http://localhost:3000/person/'
+  DATASOURCE_URL: string = 'http://localhost:3000/data'
+  EMPLOYEES_URL: string = 'http://localhost:3000/person'
   datasource!: Datasource;
 
   constructor(private http: HttpClient) {
@@ -36,4 +36,14 @@ export class EmployeeService {
       })
     })
   }
+
+  updateEmployee(id: number, data: EmployeeData): Observable<EmployeeData> {
+    return this.http.put<EmployeeData>(`${this.EMPLOYEES_URL}/${id}`, data,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      })
+  }
+
 }

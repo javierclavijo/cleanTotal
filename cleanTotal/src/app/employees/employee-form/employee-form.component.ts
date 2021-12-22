@@ -26,7 +26,8 @@ export class EmployeeFormComponent implements OnInit {
 
   constructor(
     private service: EmployeeService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder
+  ) {
   }
 
   ngOnInit(): void {

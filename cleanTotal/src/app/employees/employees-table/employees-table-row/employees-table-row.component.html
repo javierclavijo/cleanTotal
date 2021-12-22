@@ -1,4 +1,10 @@
-<td>{{employee.fullName}}</td>
+<td>
+  <input type="text"
+         class="form-control"
+         [formControl]="fullName"
+         (change)="onChange()"
+  />
+</td>
 <td>{{employee.birthDate  | date:"YYYY-MM-dd" }}</td>
 <td>{{employee.gender.description}}</td>
 <td>+{{employee.country.prefix}} {{employee.phone}}</td>
