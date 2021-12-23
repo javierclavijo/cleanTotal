@@ -1,5 +1,4 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Employee} from "../../entities/Employee";
 
 @Component({
   selector: 'app-table-filter',
@@ -10,7 +9,6 @@ export class TableFilterComponent implements OnInit {
 
   @Output() filterEvent = new EventEmitter<{ filter: string }>()
   filter: string = ''
-  selectedBy: keyof Employee = "fullName"
 
   constructor() {
   }

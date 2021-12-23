@@ -18,7 +18,8 @@
       <tr employees-table-row
           *ngFor="let employee of employees
             | employeeFilter: filter
-           | paginate: {itemsPerPage: 10, currentPage: currentPage}"
+            | employeeSort: sortBy : sortOrder
+            | paginate: {itemsPerPage: 10, currentPage: currentPage}"
           [employee]="employee"
           [datasource]="datasource"></tr>
       </tbody>

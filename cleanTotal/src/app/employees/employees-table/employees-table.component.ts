@@ -25,6 +25,8 @@ export class EmployeesTableComponent implements OnInit {
   ]
 
   filter: string = ''
+  sortBy?: keyof Employee
+  sortOrder: 'asc' | 'desc' = 'asc'
 
   constructor(
     private employeeService: EmployeeService) {
@@ -44,13 +46,17 @@ export class EmployeesTableComponent implements OnInit {
     this.employeeService.getDatasource().subscribe(d => this.datasource = d)
   }
 
-  sortEmployees(
-    by: keyof Employee): void {
-    // this.employees.sortEmployees(by)
+  sortEmployees(by: keyof Employee): void {
+    this.sortOrder = by !== this.sortBy ?
+      'asc' :
+      this.sortOrder === 'asc' ?
+        'desc' :
+        'asc'
+
+    this.sortBy = by
   }
 
   filterEmployees($event: { filter: string }) {
-    // this.employees.filterEmployees($event.filter, $event.by)
     this.filter = $event.filter
   }
 }

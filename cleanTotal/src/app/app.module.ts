@@ -15,6 +15,7 @@ import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {EmployeeFormComponent} from './employees/employee-form/employee-form.component';
 import { EmployeesTableRowComponent } from './employees/employees-table/employees-table-row/employees-table-row.component';
 import { EmployeeFilterPipe } from './pipes/employee-filter.pipe';
+import { EmployeeSortPipe } from './pipes/employee-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { EmployeeFilterPipe } from './pipes/employee-filter.pipe';
     EmployeeFormComponent,
     EmployeesTableRowComponent,
     EmployeeFilterPipe,
+    EmployeeSortPipe,
   ],
   imports: [
     BrowserModule,
