@@ -10,6 +10,8 @@ import {TableColumn} from "../../entities/TableColumn";
 })
 export class EmployeesTableComponent implements OnInit {
 
+  employees: Employee[] = []
+
   currentPage: number = 1;
   columns: TableColumn[] = [
     {name: 'Name', property: 'fullName'},
@@ -28,6 +30,7 @@ export class EmployeesTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.employeeService.employees.subscribe(e => this.employees = [...e])
   }
 
   sortEmployees(by: keyof Employee): void {

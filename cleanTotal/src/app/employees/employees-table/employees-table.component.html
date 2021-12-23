@@ -16,7 +16,7 @@
 
       <tbody>
       <tr employees-table-row
-          *ngFor="let employee of (this.employeeService.employees | async)!
+          *ngFor="let employee of this.employees
             | employeeFilter: filter
             | employeeSort: sortBy : sortOrder
             | paginate: {itemsPerPage: 10, currentPage: currentPage}"

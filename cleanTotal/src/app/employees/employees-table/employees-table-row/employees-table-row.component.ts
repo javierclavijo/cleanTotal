@@ -28,9 +28,7 @@ export class EmployeesTableRowComponent implements OnInit {
   phone = new FormControl('', Validators.required)
 
 
-  constructor(
-    private service: EmployeeService
-  ) {
+  constructor(private service: EmployeeService) {
   }
 
   ngOnInit(): void {

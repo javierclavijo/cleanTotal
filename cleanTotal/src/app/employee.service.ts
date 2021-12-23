@@ -23,19 +23,17 @@ export class EmployeeService {
       .then(response => this.loadInitialEmployees())
   }
 
-  loadInitialEmployees(): Observable<Employee[]> {
-    const observable = this.http.get<EmployeeData[]>(this.EMPLOYEES_URL).pipe(map(
-      employees => employees.map(e => new Employee(e, this._datasource.getValue()))
-    ))
-    observable.subscribe(response => this._employees.next(response))
+  loadInitialDatasource(): Observable<Datasource> {
+    const observable = this.http.get<Datasource>(this.DATASOURCE_URL)
+    observable.subscribe(response => this._datasource.next(response))
     return observable
   }
 
-  loadInitialDatasource(): Observable<Datasource> {
-    const observable = this.http.get<Datasource>(this.DATASOURCE_URL)
-    observable.subscribe(response => {
-      this._datasource.next(response)
-    })
+  loadInitialEmployees(): Observable<Employee[]> {
+    const observable = this.http.get<EmployeeData[]>(this.EMPLOYEES_URL).pipe(
+      map(employees => employees.map(e => new Employee(e, this._datasource.getValue())))
+    )
+    observable.subscribe(response => this._employees.next(response))
     return observable
   }
 
