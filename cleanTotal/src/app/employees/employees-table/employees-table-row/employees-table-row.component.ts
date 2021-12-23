@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Employee, EmployeeData} from "../../../entities/Employee";
 import {FormControl, Validators} from "@angular/forms";
 import {EmployeeService} from "../../../employee.service";
-import {Datasource} from "../../../entities/Datasource";
+import {Datasource, initialDatasource} from "../../../entities/Datasource";
 import {firstValueFrom} from "rxjs";
 import {formatDate} from "@angular/common";
 
@@ -14,7 +14,8 @@ import {formatDate} from "@angular/common";
 export class EmployeesTableRowComponent implements OnInit {
 
   @Input() employee!: Employee
-  @Input() datasource!: Datasource
+
+  datasource: Datasource = initialDatasource
 
   edit: boolean = false
 
@@ -26,12 +27,14 @@ export class EmployeesTableRowComponent implements OnInit {
   country = new FormControl('', Validators.required)
   phone = new FormControl('', Validators.required)
 
+
   constructor(
     private service: EmployeeService
   ) {
   }
 
   ngOnInit(): void {
+    this.service.datasource.subscribe(response => this.datasource = response)
   }
 
   setFormValues(): void {

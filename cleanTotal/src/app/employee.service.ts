@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {lastValueFrom, map, Observable} from "rxjs";
+import {BehaviorSubject, lastValueFrom, map, Observable, shareReplay} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Datasource} from "./entities/Datasource";
+import {Datasource, initialDatasource} from "./entities/Datasource";
 import {Employee, EmployeeData} from "./entities/Employee";
 
 @Injectable({
@@ -11,43 +11,80 @@ export class EmployeeService {
 
   DATASOURCE_URL: string = 'http://localhost:3000/data'
   EMPLOYEES_URL: string = 'http://localhost:3000/person'
-  datasource!: Datasource;
+
+  private _employees: BehaviorSubject<Employee[]> = new BehaviorSubject<Employee[]>([])
+  public readonly employees: Observable<Employee[]> = this._employees.asObservable()
+
+  private _datasource: BehaviorSubject<Datasource> = new BehaviorSubject<Datasource>(initialDatasource)
+  public readonly datasource: Observable<Datasource> = this._datasource.asObservable()
 
   constructor(private http: HttpClient) {
+    lastValueFrom(this.loadInitialDatasource())
+      .then(response => this.loadInitialEmployees())
   }
 
-  async getEmployees(): Promise<Observable<Employee[]>> {
-    await lastValueFrom(this.getDatasource()).then(
-      datasource => this.datasource = datasource
-    )
-    return this.http.get<EmployeeData[]>(this.EMPLOYEES_URL).pipe(map(
-      employees => employees.map(e => new Employee(e, this.datasource))
+  loadInitialEmployees(): Observable<Employee[]> {
+    const observable = this.http.get<EmployeeData[]>(this.EMPLOYEES_URL).pipe(map(
+      employees => employees.map(e => new Employee(e, this._datasource.getValue()))
     ))
+    observable.subscribe(response => this._employees.next(response))
+    return observable
   }
 
-  getDatasource(): Observable<Datasource> {
-    return this.http.get<Datasource>(this.DATASOURCE_URL)
+  loadInitialDatasource(): Observable<Datasource> {
+    const observable = this.http.get<Datasource>(this.DATASOURCE_URL)
+    observable.subscribe(response => {
+      this._datasource.next(response)
+    })
+    return observable
   }
 
   addEmployee(data: EmployeeData): Observable<EmployeeData> {
-    return this.http.post<EmployeeData>(this.EMPLOYEES_URL, data, {
+    const observable = this.http.post<EmployeeData>(this.EMPLOYEES_URL, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    })
+    }).pipe(shareReplay())
+
+    observable.subscribe(response => {
+        const newEmployees = [...this._employees.getValue(), new Employee(response, this._datasource.getValue())]
+        this._employees.next(newEmployees)
+      }
+    )
+
+    return observable
   }
 
   updateEmployee(id: number, data: EmployeeData): Observable<EmployeeData> {
-    return this.http.put<EmployeeData>(`${this.EMPLOYEES_URL}/${id}`, data,
+    const observable = this.http.put<EmployeeData>(`${this.EMPLOYEES_URL}/${id}`, data,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
-      })
+      }).pipe(shareReplay())
+
+    observable.subscribe(response => {
+      const newEmployees = this._employees.getValue()
+      const employeeIndex = newEmployees.findIndex(e => e.id === response.id)
+      newEmployees.splice(employeeIndex, 1, new Employee(response, this._datasource.getValue()))
+      this._employees.next(newEmployees)
+    })
+
+    return observable
   }
 
   deleteEmployee(id: number): Observable<Object> {
-    return this.http.delete<EmployeeData>(`${this.EMPLOYEES_URL}/${id}`)
+    const observable = this.http.delete<EmployeeData>(`${this.EMPLOYEES_URL}/${id}`
+    ).pipe(shareReplay())
+
+    observable.subscribe(response => {
+      const newEmployees = this._employees.getValue()
+      const employeeIndex = newEmployees.findIndex(e => e.id === response.id)
+      newEmployees.splice(employeeIndex, 1)
+      this._employees.next(newEmployees)
+    })
+
+    return observable
   }
 
 }

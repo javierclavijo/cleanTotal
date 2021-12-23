@@ -1,13 +1,13 @@
-export interface Datasource {
-  sex: GenderLanguageData[],
-  language: GenderLanguageData[],
-  country: CountryData[]
-}
-
 export interface GenderLanguageData {
   id: number,
   description: string,
   key: string,
+}
+
+const initialGenderLanguageData = {
+  id: 0,
+  description: '',
+  key: ''
 }
 
 export class GenderLanguage {
@@ -34,6 +34,13 @@ export interface CountryData {
   language: string,
 }
 
+const initialCountryData = {
+  id: 0,
+  description: '',
+  prefix: 0,
+  language: '',
+}
+
 export class Country {
   id: number
   description: string
@@ -51,4 +58,16 @@ export class Country {
   valueOf(): string {
     return this.description
   }
+}
+
+export interface Datasource {
+  sex: GenderLanguageData[],
+  language: GenderLanguageData[],
+  country: CountryData[]
+}
+
+export const initialDatasource: Datasource = {
+  sex: [initialGenderLanguageData],
+  language: [initialGenderLanguageData],
+  country: [initialCountryData]
 }

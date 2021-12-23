@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from "../../employee.service";
 import {Employee} from "../../entities/Employee";
 import {TableColumn} from "../../entities/TableColumn";
-import {Datasource} from "../../entities/Datasource";
 
 @Component({
   selector: 'app-employees-table',
@@ -10,9 +9,6 @@ import {Datasource} from "../../entities/Datasource";
   styleUrls: ['./employees-table.component.scss'],
 })
 export class EmployeesTableComponent implements OnInit {
-
-  employees: Employee[] = []
-  datasource!: Datasource
 
   currentPage: number = 1;
   columns: TableColumn[] = [
@@ -28,22 +24,10 @@ export class EmployeesTableComponent implements OnInit {
   sortBy?: keyof Employee
   sortOrder: 'asc' | 'desc' = 'asc'
 
-  constructor(
-    private employeeService: EmployeeService) {
+  constructor(public employeeService: EmployeeService) {
   }
 
   ngOnInit(): void {
-    this.getEmployees()
-    this.getDatasource()
-  }
-
-  async getEmployees(): Promise<void> {
-    let employeesObservable = await this.employeeService.getEmployees()
-    employeesObservable.subscribe(e => this.employees = e)
-  }
-
-  async getDatasource(): Promise<void> {
-    this.employeeService.getDatasource().subscribe(d => this.datasource = d)
   }
 
   sortEmployees(by: keyof Employee): void {

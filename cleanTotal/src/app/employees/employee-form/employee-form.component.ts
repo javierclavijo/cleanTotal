@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {EmployeeService} from "../../employee.service";
-import {Datasource} from "../../entities/Datasource";
+import {Datasource, initialDatasource} from "../../entities/Datasource";
 import {Employee} from "../../entities/Employee";
 
 @Component({
@@ -11,8 +11,8 @@ import {Employee} from "../../entities/Employee";
 })
 export class EmployeeFormComponent implements OnInit {
 
-  datasource?: Datasource;
   message?: string;
+  datasource: Datasource = initialDatasource
 
   employeeForm = this.fb.group({
     name: ['', Validators.required],
@@ -31,21 +31,16 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDatasource();
-  }
-
-  async getDatasource(): Promise<void> {
-    let datasourceObservable = await this.service.getDatasource()
-    datasourceObservable.subscribe(data => this.datasource = data)
+    this.service.datasource.subscribe(response => this.datasource = response)
   }
 
   onSubmit(): void {
     this.service.addEmployee({
       ...this.employeeForm.value,
-      lastModification: Date(),
+      lastModification: new Date().toISOString(),
       countryId: parseInt(this.employeeForm.value.countryId)
     }).subscribe(e => {
-      let employee = new Employee(e, this.datasource!)
+      let employee = new Employee(e, this.datasource)
       this.message = `Employee ${employee.fullName} added successfully.`
     })
   }
