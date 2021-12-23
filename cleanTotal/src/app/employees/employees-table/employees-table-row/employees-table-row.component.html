@@ -74,14 +74,20 @@
 <td>{{employee.lastModified | date:"YYYY-MM-dd HH:mm" }}</td>
 
 
-<!-- Edition controls -->
+<!-- Edition/deletion controls -->
 
 <td>
-  <a href="#"
-     *ngIf="!edit"
-     (click)="toggleEdit($event)">
-    <i class="las la-edit"></i>
-  </a>
+  <div *ngIf="!edit">
+    <a href="#"
+       (click)="toggleEdit($event)">
+      <i class="las la-edit"></i>
+    </a>
+
+    <a href="#"
+       (click)="delete($event)">
+      <i class="las la-trash"></i>
+    </a>
+  </div>
 
   <div *ngIf="edit">
     <a href="#"

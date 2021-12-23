@@ -16,7 +16,6 @@ export class EmployeesTableRowComponent implements OnInit {
   @Input() employee!: Employee
   @Input() datasource!: Datasource
 
-
   edit: boolean = false
 
   name = new FormControl('', Validators.required)
@@ -72,6 +71,12 @@ export class EmployeesTableRowComponent implements OnInit {
       this.datasource
     )
     this.toggleEdit($event)
+  }
+
+  delete($event: Event): void {
+    $event.preventDefault()
+    this.service.deleteEmployee(this.employee.id).subscribe(response => {
+    })
   }
 
 }
