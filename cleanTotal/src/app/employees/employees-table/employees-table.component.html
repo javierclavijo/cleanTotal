@@ -15,12 +15,13 @@
       </thead>
 
       <tbody>
-      <tr employees-table-row
-          *ngFor="let employee of this.employees
-            | employeeFilter: filter
-            | employeeSort: sortBy : sortOrder
-            | paginate: {itemsPerPage: 10, currentPage: currentPage}"
-          [employee]="employee"></tr>
+      <ng-container *ngIf="this.employees$ | async as employeesAsync">
+        <tr employees-table-row *ngFor="let employee of employeesAsync
+              | employeeSort: sortBy : sortOrder
+              | employeeFilter: filter
+              | paginate: {itemsPerPage: 10, currentPage: currentPage}"
+            [employee]="employee"></tr>
+      </ng-container>
       </tbody>
     </table>
 

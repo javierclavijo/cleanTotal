@@ -76,9 +76,7 @@ export class EmployeeService {
     ).pipe(shareReplay())
 
     observable.subscribe(response => {
-      const newEmployees = this._employees.getValue()
-      const employeeIndex = newEmployees.findIndex(e => e.id === response.id)
-      newEmployees.splice(employeeIndex, 1)
+      const newEmployees = this._employees.getValue().filter(e => e.id !== id)
       this._employees.next(newEmployees)
     })
 
